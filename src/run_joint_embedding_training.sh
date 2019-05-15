@@ -57,7 +57,7 @@ fi
 # Generate train/val lmdbs of shape embedding
 if [ "$first" -le 3 ] && [ "$last" -ge 3 ]; then
   cd shape_embedding_training; 
-  python ./gen_shape_embedding_lmdbs.py
+  python3 ./gen_shape_embedding_lmdbs.py
   cd ..;
 fi
 

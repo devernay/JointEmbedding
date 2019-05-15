@@ -32,7 +32,7 @@ if args.caffemodel:
 if args.prototxt:
     image_embedding_prototxt = args.prototxt
 
-print 'Image embedding for %s is:'%(args.image)
+print('Image embedding for %s is:'%(args.image))
 image_embedding_array = extract_cnn_features(img_filelist=args.image,
                      img_root='/',
                      prototxt=image_embedding_prototxt, 
@@ -40,4 +40,4 @@ image_embedding_array = extract_cnn_features(img_filelist=args.image,
                      feat_name='image_embedding',
                      caffe_path=g_caffe_install_path,
                      mean_file=g_mean_file)[0]
-print image_embedding_array.tolist()
+print(image_embedding_array.tolist())

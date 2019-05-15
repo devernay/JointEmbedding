@@ -35,7 +35,7 @@ if args.caffemodel:
 if args.prototxt:
     image_embedding_prototxt = args.prototxt
 
-print 'Computing image embedding for %s...'%(args.image)
+print('Computing image embedding for %s...'%(args.image))
 image_embedding_array = extract_cnn_features(img_filelist=args.image,
                      img_root='/',
                      prototxt=image_embedding_prototxt, 
@@ -45,20 +45,20 @@ image_embedding_array = extract_cnn_features(img_filelist=args.image,
                      mean_file=g_mean_file)
 image_embedding = image_embedding_array[0]
 
-print 'Loading shape embedding space from %s...'%(g_shape_embedding_space_file_txt)
+print('Loading shape embedding space from %s...'%(g_shape_embedding_space_file_txt))
 shape_embedding_space = [np.array([float(value) for value in line.strip().split(' ')]) for line in open(g_shape_embedding_space_file_txt, 'r')]
 assert(image_embedding.size == shape_embedding_space[0].size)
 
-print 'Computing distances and ranking...'
+print('Computing distances and ranking...')
 sorted_distances = sorted([(sum((image_embedding-shape_embedding)**2), idx) for idx, shape_embedding in enumerate(shape_embedding_space)])
-print sorted_distances[0:args.top_k]
+print(sorted_distances[0:args.top_k])
 
-print 'Loading shape list from %s'%(g_shape_list_file)
+print('Loading shape list from %s'%(g_shape_list_file))
 shape_list = [line.strip().split(' ') for line in open(g_shape_list_file, 'r')]
 assert(len(shape_list) == len(shape_embedding_space))
 
 visualization_filename = os.path.splitext(args.image)[0]+'_retrieval.html'
-print 'Saving visualization to %s...'%(visualization_filename)
+print('Saving visualization to %s...'%(visualization_filename))
 visualization_template = os.path.join(BASE_DIR, 'image_based_shape_retrieval.html')
 shutil.copy(visualization_template, visualization_filename)
 for line in fileinput.input(visualization_filename, inplace=True):

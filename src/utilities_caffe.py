@@ -34,10 +34,11 @@ def extract_cnn_features(img_filelist, img_root, prototxt, caffemodel, feat_name
         imagenet_mean = np.load(mean_file)
         net_parameter = caffe_pb2.NetParameter()
         text_format.Merge(open(prototxt, 'r').read(), net_parameter)
+        print("input dim",net_parameter.input_dim, len(net_parameter.input_dim),'input_shape',net_parameter.input_shape,len(net_parameter.input_shape))
         if len(net_parameter.input_dim) != 0:
             input_shape = net_parameter.input_dim
         else:
-            input_shape = net_parameter.input_shape
+            input_shape = net_parameter.input_shape[0].dim
         imagenet_mean = caffe.io.resize_image(imagenet_mean.transpose((1, 2, 0)), input_shape[2:]).transpose((2, 0, 1))
     
     # INIT NETWORK
@@ -62,12 +63,12 @@ def extract_cnn_features(img_filelist, img_root, prototxt, caffemodel, feat_name
     ## BATCH FORWARD 
     batch_size = int(net.blobs['data'].data.shape[0])
     batch_num = int(math.ceil(N/float(batch_size)))
-    print 'batch_num:', batch_num
+    print('batch_num:', batch_num)
 
     def compute_feat_array(batch_idx):    
         start_idx = batch_size * batch_idx
         end_idx = min(batch_size * (batch_idx+1), N)
-        print datetime.datetime.now().time(), '- batch: ', batch_idx, 'of', batch_num, 'idx range:[', start_idx, end_idx, ']'
+        print(datetime.datetime.now().time(), '- batch: ', batch_idx, 'of', batch_num, 'idx range:[', start_idx, end_idx, ']')
     
         input_data = []
         for img_idx in range(start_idx, end_idx):
@@ -120,11 +121,11 @@ def stack_caffe_models(prototxt, base_model, top_model, stacked_model, caffe_pat
     
     net = caffe.Net(prototxt, caffe.TEST)
 
-    print 'Copying trained layers from %s...'%(base_model)
+    print('Copying trained layers from %s...'%(base_model))
     net.copy_from(base_model)
 
-    print 'Copying trained layers from %s...'%(top_model)
+    print('Copying trained layers from %s...'%(top_model))
     net.copy_from(top_model)
     
-    print 'Saving stacked model to %s...'%(top_model)
+    print('Saving stacked model to %s...'%(top_model))
     net.save(stacked_model)

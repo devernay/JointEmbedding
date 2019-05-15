@@ -22,7 +22,9 @@ image_count = 0;
 while ischar(line)
     shape_property = strsplit(line, ' ');
     shape_images_folder = fullfile(folder, shape_property{1}, shape_property{2});
-    shape_images = extractfield(dir(fullfile(shape_images_folder, '*.png')), 'name');
+    % shape_images = extractfield(dir(fullfile(shape_images_folder, '*.png')), 'name');
+    shape_images_dir = dir(fullfile(shape_images_folder, '*.png'));
+    shape_images = {shape_images_dir.name};
     shape_image_count = length(shape_images);
     for i = 1:shape_image_count
         image_list{image_count+i} = fullfile(shape_images_folder, shape_images{i});

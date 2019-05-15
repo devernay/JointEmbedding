@@ -14,7 +14,9 @@ while ischar(line)
     shape_count = shape_count + 1;
     shape_property = strsplit(line, ' ');
     lfd_images_folder = fullfile(g_lfd_images_cropped_folder, shape_property{1}, shape_property{2});
-    lfd_images_cell = extractfield(dir(fullfile(lfd_images_folder, '*.png')), 'name');
+    % lfd_images_cell = extractfield(dir(fullfile(lfd_images_folder, '*.png')), 'name');
+    lfd_images_dir = dir(fullfile(lfd_images_folder, '*.png'));
+    lfd_images_cell = {lfd_images_dir.name};
     lfd_images_sorted = sort(lfd_images_cell);
     for i = 1:g_lfd_view_num
         view_image_lists{i, shape_count} = fullfile(lfd_images_folder, lfd_images_sorted{i});

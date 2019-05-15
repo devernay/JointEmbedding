@@ -45,7 +45,8 @@ if __name__ == '__main__':
     print('Generating rendering commands...', end = '')
     commands = []
     tmp_dirname = os.path.join(g_data_folder, 'tmp_views/')
-    for shape_property in shape_list:
+    first_shape_idx = 0 # modify to set a different starting point
+    for shape_property in shape_list[first_shape_idx:]:
         shape_synset = shape_property[0]
         shape_md5 = shape_property[1]
         shape_file = os.path.join(g_shapenet_root_folder, shape_synset, shape_md5, 'model.obj')
@@ -71,8 +72,8 @@ if __name__ == '__main__':
     pool = Pool(g_syn_rendering_thread_num)
     for idx, return_code in enumerate(pool.imap(partial(call, shell=True), commands)):
         if idx % report_step == 0:
-            print('[%s] Rendering command %d of %d' % (datetime.datetime.now().time(), idx, len(shape_list)))
+            print('[%s] Rendering command %d of %d, shape %s %s' % (datetime.datetime.now().time(), idx+first_shape_idx , len(shape_list), shape_list[idx].shape_synset, shape_list[idx].shape_md5))
         if return_code != 0:
-            print('Rendering command %d of %d (\"%s\") failed' % (idx, len(shape_list), commands[idx]))
+            print('Rendering command %d of %d (shape %s %s) failed' % (idx, len(shape_list), shape_list[idx].shape_synset, shape_list[idx].shape_md5))
             
     shutil.rmtree(tmp_dirname)

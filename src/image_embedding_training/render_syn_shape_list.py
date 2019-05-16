@@ -72,8 +72,8 @@ if __name__ == '__main__':
     pool = Pool(g_syn_rendering_thread_num)
     for idx, return_code in enumerate(pool.imap(partial(call, shell=True), commands)):
         if idx % report_step == 0:
-            print('[%s] Rendering command %d of %d, shape %s %s' % (datetime.datetime.now().time(), idx+first_shape_idx , len(shape_list), shape_list[idx].shape_synset, shape_list[idx].shape_md5))
+            print('[%s] Rendering command %d of %d, shape %s %s' % (datetime.datetime.now().time(), idx+first_shape_idx , len(shape_list), shape_list[idx+first_shape_idx].shape_synset, shape_list[idx+first_shape_idx].shape_md5))
         if return_code != 0:
-            print('Rendering command %d of %d (shape %s %s) failed' % (idx, len(shape_list), shape_list[idx].shape_synset, shape_list[idx].shape_md5))
+            print('Rendering command %d of %d (shape %s %s) failed' % (idx+first_shape_idx, len(shape_list), shape_list[idx+first_shape_idx].shape_synset, shape_list[idx+first_shape_idx].shape_md5))
             
     shutil.rmtree(tmp_dirname)

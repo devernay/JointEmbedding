@@ -66,10 +66,13 @@ for line in fileinput.input(visualization_filename, inplace=True):
     sys.stdout.write(line)
 
 retrieval_list = ''
+retrieval_list_txt = [os.path.split(args.image)[-1]]
 for i in range(args.top_k):
     shape_idx = sorted_distances[i][1]
     synset = shape_list[shape_idx][0]
     md5_id = shape_list[shape_idx][1]
+    retrieval_list_txt.append(synset)
+    retrieval_list_txt.append(md5_id)
     retrieval_list = retrieval_list + \
 """
      <div class="retrieval">
@@ -80,8 +83,14 @@ for i in range(args.top_k):
 	    </div>
 	</div>
  """%(synset, md5_id, synset, md5_id, synset, md5_id, md5_id)
- 
+
+visualization_filename_txt = os.path.splitext(args.image)[0]+'_retrieval.txt'
+f = open(visualization_filename_txt, "w")
+print(*retrieval_list_txt, sep=',', file=f)
+f.close()
 
 for line in fileinput.input(visualization_filename, inplace=True):
     line = line.replace('RETRIEVAL_LIST', retrieval_list)
     sys.stdout.write(line)
+
+

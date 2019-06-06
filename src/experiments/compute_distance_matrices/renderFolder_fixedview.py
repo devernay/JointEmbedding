@@ -28,7 +28,7 @@ if __name__ == '__main__':
     for shape_property in shape_list:
         shape_synset = shape_property[0]
         shape_md5 = shape_property[1]
-        shape_file = os.path.join(g_shapenet_root_folder, shape_synset, shape_md5, 'model.obj')
+        shape_file = os.path.join(g_shapenet_root_folder, shape_synset, shape_md5, g_shapenet_model)
         renderFolder = os.path.join(renderRootFolder, shape_md5)
 
         if not os.path.exists(renderFolder):

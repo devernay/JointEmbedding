@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 #------------------------------------------------------------------------------
@@ -25,7 +25,13 @@ g_minfunc_2012_path = os.path.abspath(os.path.join(g_3rd_party_folder, 'minFunc_
 # Follow Caffe homepage for the installation instructions of Caffe.
 g_caffe_install_path = os.path.abspath('/opt/caffe') # [take care!!!]
 g_matlab_executable_path = os.path.abspath('/usr/local/bin/matlab') # [take care!!!]
-g_shapenet_root_folder = os.path.join(g_data_folder, 'ShapeNetCore2015Summer') # [take care!!!], where you put ShapeNet data
+g_shapenet_version = 2
+if g_shapenet_version == 1:
+    g_shapenet_root_folder = os.path.join(g_data_folder, 'ShapeNetCore.v1') # [take care!!!], where you put ShapeNet data
+    g_shapenet_model = 'model.obj'
+else:
+    g_shapenet_root_folder = os.path.join(g_data_folder, 'ShapeNetCore.v2') # [take care!!!], where you put ShapeNet data
+    g_shapenet_model = 'models/model_normalized.obj'
 g_sun2012_data_url = 'http://groups.csail.mit.edu/vision/SUN/releases/SUN2012pascalformat.tar.gz'
 
 # We fine tune our model from RCNN model

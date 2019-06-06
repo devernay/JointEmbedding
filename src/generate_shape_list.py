@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 import os
@@ -18,7 +18,7 @@ for synset in g_shapenet_synset_set:
     
     shape_folders = os.listdir(synset_folder)
     for md5 in shape_folders:
-        shape_file = os.path.join(synset_folder, md5, 'model.obj')
+        shape_file = os.path.join(synset_folder, md5, g_shapenet_model)
         
         if not os.path.exists(shape_file):
             print shape_file, 'doesn\'t exist!'

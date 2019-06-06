@@ -2,3 +2,7 @@ ShapeNetCore2015Summer
 evaluation_cross_view_image_retrieval*
 shape_list_*.txt
 tmp_views
+ShapeNetCore.v1
+ShapeNetCore.v2
+shape_embedding
+03001627

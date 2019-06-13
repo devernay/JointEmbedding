@@ -8,7 +8,7 @@ for modelId in modelIds:
 
 for modelId in modelIds:
   img_names = os.listdir('exactmatch_selected_cropped/'+modelId)
-  print img_names
+  print(img_names)
   j = 1
   for k in range(len(img_names)):
     try:
@@ -16,5 +16,5 @@ for modelId in modelIds:
       im.save('ExactMatchChairs/' + modelId+'_'+str(j)+'.jpg', 'JPEG')
       j += 1
     except:
-      print "Cannot open: " + modelId + '/' + img_names[k]
+      print("Cannot open: " + modelId + '/' + img_names[k])
     #os.rename(modelId+'/'+imgs[k], modelId+'/'+modelId+'_'+str(k)+

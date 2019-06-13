@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 import os
@@ -32,10 +32,10 @@ if args.caffemodel:
 if args.prototxt:
     siamese_embedding_prototxt = args.prototxt
 
-print 'Siamese embedding for %s is:'%(args.image)
-print siamese_embedding_array[0, :, 0, 0].tolist()
+print('Siamese embedding for %s is:'%(args.image))
+print(siamese_embedding_array[0, :, 0, 0].tolist())
 
-print 'Siamese embedding for %s is:'%(args.image)
+print('Siamese embedding for %s is:'%(args.image))
 siamese_embedding_array = extract_cnn_features(img_filelist=args.image,
                      img_root='/',
                      prototxt=siamese_embedding_prototxt, 
@@ -43,4 +43,4 @@ siamese_embedding_array = extract_cnn_features(img_filelist=args.image,
                      feat_name='image_embedding',
                      caffe_path=g_caffe_install_path,
                      mean_file=g_mean_file)[0]
-print siamese_embedding_array[0, :, 0, 0].tolist()
+print(siamese_embedding_array[0, :, 0, 0].tolist())

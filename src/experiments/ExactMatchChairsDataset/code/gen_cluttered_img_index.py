@@ -8,5 +8,5 @@ clutter_img_index = []
 for clutter_img in clutter_imgs:
   clutter_img_index.append(imgs.index(clutter_img))
 
-print clutter_img_index
+print(clutter_img_index)
 np.savetxt('exact_match_chairs_cluttered_img_indicies_0to314.txt',clutter_img_index,fmt='%d')

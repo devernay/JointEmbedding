@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 import os
@@ -33,7 +33,7 @@ parser.add_argument('--output_lmdb', help='Path to output LMDB.', required=True)
 parser.add_argument('--imageid2shapeid', help='Path to imageid2shapeid file.', required=True)
 args = parser.parse_args()
 
-print 'Loading imageid2shapeid file from %s...'%(args.imageid2shapeid)
+print('Loading imageid2shapeid file from %s...'%(args.imageid2shapeid))
 imageid2shapeid_mapping = [int(line.strip()) for line in open(args.imageid2shapeid, 'r')]
         
 def convert_imageid2shapeid(datum_string, def_param=imageid2shapeid_mapping):
@@ -70,5 +70,5 @@ with env_input.begin() as txn:
             del cache_value_input[:]
             
         if(image_count%report_step == 0):
-            print datetime.datetime.now().time(), '-', image_count, 'of', len(imageid2shapeid_mapping), 'processed!'
+            print(datetime.datetime.now().time(), '-', image_count, 'of', len(imageid2shapeid_mapping), 'processed!')
         image_count = image_count + 1

@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 import os
@@ -16,14 +16,14 @@ parser.add_argument('--query_idx', help='Query shape index.', type=int, required
 parser.add_argument('--top_k', help='Retrieve top K shapes.', type=int, default=32)
 args = parser.parse_args()
 
-print 'Loading shape distance matrix from %s...'%(g_shape_distance_matrix_file_txt)
+print('Loading shape distance matrix from %s...'%(g_shape_distance_matrix_file_txt))
 shape_distance_matrix = [[float(value) for value in line.strip().split(' ')] for line in open(g_shape_distance_matrix_file_txt, 'r')]
 assert(len(shape_distance_matrix) == len(shape_distance_matrix[0]))
 
-print 'Computing ranking...'
+print('Computing ranking...')
 sorted_distances = sorted([(distance, idx) for idx, distance in enumerate(shape_distance_matrix[args.query_idx])])
 
-print 'Loading shape list from %s'%(g_shape_list_file)
+print('Loading shape list from %s'%(g_shape_list_file))
 shape_list = [line.strip().split(' ') for line in open(g_shape_list_file, 'r')]
 assert(len(shape_distance_matrix) == len(shape_list))
 
@@ -32,7 +32,7 @@ if not os.path.exists(visualization_folder):
     os.makedirs(visualization_folder)
 visualization_filename = os.path.join(visualization_folder, 'visualize_distance_matrix_KNN_%s.html'%(args.query_idx))
 visualization_template = os.path.join(BASE_DIR, 'visualize_distance_matrix_KNN.html')
-print 'Saving visualization to %s...'%(visualization_filename)
+print('Saving visualization to %s...'%(visualization_filename))
 shutil.copy(visualization_template, visualization_filename)
 for line in fileinput.input(visualization_filename, inplace=True):
     line = line.replace('SYNSET', shape_list[args.query_idx][0])

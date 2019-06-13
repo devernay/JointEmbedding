@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 import os
@@ -32,7 +32,7 @@ for lmdb_name in lmdb_names:
     keys = []
     labels = []
     idx = 0
-    print datetime.datetime.now().time(), '-', 'loading lmdb from', lmdb_name
+    print(datetime.datetime.now().time(), '-', 'loading lmdb from', lmdb_name)
     with env.begin() as txn:
         cursor = txn.cursor()
         string_cache = []
@@ -45,7 +45,7 @@ for lmdb_name in lmdb_names:
                 del string_cache[:]
                 
             if(idx%report_step == 0):
-                print datetime.datetime.now().time(), '-', idx, 'processed!'
+                print(datetime.datetime.now().time(), '-', idx, 'processed!')
             idx = idx + 1  
     env.close()
     

@@ -59,15 +59,15 @@ def load_and_resize_img(img_filename):
   return im
 
 all_feats = np.zeros((N,int(args.feat_dim),1,1))
-print np.shape(all_feats)
+print(np.shape(all_feats))
 batch_feats = np.zeros((BATCH_SIZE, int(args.feat_dim), 1, 1))
 
 batch_num = int(math.ceil(N/float(BATCH_SIZE)))
-print batch_num
+print(batch_num)
 for k in range(batch_num):
     start_idx = BATCH_SIZE * k
     end_idx = min(BATCH_SIZE * (k+1), N)
-    print 'batch: ', k, 'idx: ', start_idx, end_idx
+    print('batch: ', k, 'idx: ', start_idx, end_idx)
 
     # prepare batch input data
     #p = Pool()
@@ -78,7 +78,7 @@ for k in range(batch_num):
     for j in range(start_idx, end_idx):
         im = caffe.io.load_image(img_filenames[j])
         if resize_dim > 0 and np.shape(im)[0] != resize_dim:
-          #print 'resize'
+          #print('resize')
           im = resize(im, (resize_dim, resize_dim))
           assert(np.shape(im)[0] == resize_dim)
         input_data.append(im)
@@ -87,12 +87,12 @@ for k in range(batch_num):
     feats = net.blobs[args.feat_name].data
     feat_shape = np.shape(feats)
     feat_dim = feat_shape[1] * feat_shape[2] * feat_shape[3]
-    print feat_shape, feat_dim
+    print(feat_shape, feat_dim)
     assert(feat_dim == int(args.feat_dim))
     assert(np.shape(feats)[0] == BATCH_SIZE)
     for j in range(BATCH_SIZE):
       batch_feats[j,:,:,:] = feats[j,:,:,:].reshape(feat_dim,1,1)
-    #print np.shape(batch_feats)
+    #print(np.shape(batch_feats))
     all_feats[start_idx:end_idx,:,:,:] = batch_feats[0:end_idx-start_idx,:,:]
 
 # TODO: the header may have some problem! sometimes the last mat file has header'N as 0
@@ -113,7 +113,7 @@ def save_mat_for_lmdb(filename_prefix, header_all, data_all, suffix):
   else:
      sio.savemat(filename_prefix+str(suffix), {'header':header, 'data':data})
  
-print np.shape(all_feats.squeeze())
+print(np.shape(all_feats.squeeze()))
 try:
   if args.save_file_format == 'txt':
     np.savetxt(args.save_file+'.txt', all_feats.squeeze(), fmt='%.8e', delimiter=' ')

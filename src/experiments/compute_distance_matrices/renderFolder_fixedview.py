@@ -19,7 +19,7 @@ if __name__ == '__main__':
     shape_list = [line.strip().split(' ') for line in open(g_shape_list_file, 'r')]
     
     if not os.path.exists(renderRootFolder):
-        os.mkdir(renderRootFolder,0777) 
+        os.mkdir(renderRootFolder,0o777) 
 
     tcount = 0
     cmd = []
@@ -34,7 +34,7 @@ if __name__ == '__main__':
         if not os.path.exists(renderFolder):
             cmd.append('mkdir -p %s' % renderFolder)
         elif len(glob.glob(os.path.join(renderFolder, '*.png'))) >= num:
-            print 'skip', shape_md5
+            print('skip', shape_md5)
             continue
 
         command_per_model = '%s %s --background --python %s -- %s %s %s %s > /dev/null 2>&1' % (g_blender_executable_path, g_blank_blend_file_path, render_program, shape_file, renderFolder)
@@ -42,8 +42,8 @@ if __name__ == '__main__':
 
     pool = Pool(12) # 5 concurrent commands at a time
     for i, returncode in enumerate(pool.imap(partial(call, shell=True), cmd)):
-	print i
+	print(i)
 	if returncode != 0:
-	    print("%d command failed: %d" % (i, returncode)) 
+	    print("%d command failed: %d" % (i, returncode))
 	    tcount = tcount + 1
-	    print tcount
+	    print(tcount)

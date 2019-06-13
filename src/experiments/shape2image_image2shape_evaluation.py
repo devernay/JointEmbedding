@@ -43,7 +43,7 @@ elif args.clean_only:
   image_model_ids = image_model_ids[exact_match_clean_indicies]
   img_names = [img_names[k] for k in exact_match_clean_indicies]
 
-print 'image_model_ids:', image_model_ids
+print('image_model_ids:', image_model_ids)
 image_ids_for_315_models = []
 for modelid in exact_match_modelIds:
   t = []
@@ -83,7 +83,7 @@ else:
   image_embedding = image_embedding.reshape((image_embedding.shape[0], image_embedding.shape[1]))
   assert(image_model_ids.shape[0] == image_embedding.shape[0])
   shape_embedding = np.loadtxt(shape_embedding_file)
-  print image_embedding.shape, shape_embedding.shape
+  print(image_embedding.shape, shape_embedding.shape)
   D = cdist(image_embedding, shape_embedding)
 
 #
@@ -92,21 +92,21 @@ else:
 dist_name = os.path.join(RESULTDIR, 'tmp_image2shape_dist.txt')
 np.savetxt(dist_name, D)
 
-print np.shape(D)
+print(np.shape(D))
 image_N = D.shape[0]
 
 image2shape_retrieval_ranking = []
 image2shape_retrieval_ranking_105models = []
 for k in range(image_N):
   distances = D[k,:]#[float(distance) for distance in line.strip().split()]
-  ranking = range(len(distances))
+  ranking = list(range(len(distances)))
   ranking.sort(key = lambda rank:distances[rank])
-  print 'image %d %s \t retrieval: %d' % (k,img_names[k].split('/')[-1], ranking.index(image_model_ids[k])+1)
+  print('image %d %s \t retrieval: %d' % (k,img_names[k].split('/')[-1], ranking.index(image_model_ids[k])+1))
   image2shape_retrieval_ranking.append(ranking.index(image_model_ids[k])+1)
 
   # only consider the 105 models
   distances_105models = D[k,exact_match_modelIds]
-  ranking_105models = range(len(distances_105models))
+  ranking_105models = list(range(len(distances_105models)))
   ranking_105models.sort(key = lambda rank:distances_105models[rank])
   image2shape_retrieval_ranking_105models.append(ranking_105models.index(exact_match_modelIds.index(image_model_ids[k]))+1)
 
@@ -145,11 +145,11 @@ for k in range(len(exact_match_modelIds)): # 0 - 104
     continue
 
   distances = D.transpose()[modelId,:] # clutter: 141*1
-  ranking = range(len(distances))
+  ranking = list(range(len(distances)))
   ranking.sort(key = lambda rank:distances[rank])
   ranks = [ranking.index(j)+1 for j in image_ids_for_315_models[k]]
   retrieval_rank = min(ranks) # find images corresponding to this model
-  print 'model %d %s\t retrieval: %d' % (k,exact_match_modelIds[k], retrieval_rank)
+  print('model %d %s\t retrieval: %d' % (k,exact_match_modelIds[k], retrieval_rank))
   shape2image_retrieval_ranking.append(retrieval_rank)
 
   first_ranks.append(min(ranks))
@@ -160,7 +160,7 @@ for topK in range(250):
   n = sum([r <= topK+1 for r in shape2image_retrieval_ranking])
   shape2image_topK_accuracies.append(n / float(model_N))
 
-print first_ranks
-print last_ranks
+print(first_ranks)
+print(last_ranks)
 np.savetxt(args.result_id+'_shape2image_topK_accuracy.txt', shape2image_topK_accuracies, fmt='%.4f')
 np.savetxt(args.result_id+'_first_last_appearance_median_rank.txt', [np.median(first_ranks), np.median(last_ranks)], fmt='%d')

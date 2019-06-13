@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 import os
@@ -16,7 +16,7 @@ from global_variables import *
 # ---- ----
 
 shape_md5_list = [line.strip().split(' ')[1] for line in open(g_shape_list_file, 'r')]
-print len(shape_md5_list), 'shapes!'
+print(len(shape_md5_list), 'shapes!')
 
 # get all img files
 img_shape_id_pairs = [] # full path
@@ -27,7 +27,7 @@ for synset_dir in g_shapenet_synset_set:
         imgs = os.listdir(shape_dir)
         for img in imgs:
             img_shape_id_pairs.append((os.path.join(shape_dir, img), shape_id))
-print len(img_shape_id_pairs), 'syn images!'
+print(len(img_shape_id_pairs), 'syn images!')
 
 # shuffle
 random.seed(9527) # seed random with a fixed number

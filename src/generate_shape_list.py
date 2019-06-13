@@ -8,7 +8,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(BASE_DIR)
 from global_variables import *
 
-print 'Generating shape list...'
+print('Generating shape list...')
 
 blacklist = [line.strip().split(' ') for line in open('./blacklist.txt', 'r')]
 
@@ -21,15 +21,15 @@ for synset in g_shapenet_synset_set:
         shape_file = os.path.join(synset_folder, md5, g_shapenet_model)
         
         if not os.path.exists(shape_file):
-            print shape_file, 'doesn\'t exist!'
+            print(shape_file, 'doesn\'t exist!')
         
         shape_item = [synset, md5]
 	if shape_item in blacklist:
-            print 'Skip %s/%s as it\'s in the blacklist' % (synset, md5)
+            print('Skip %s/%s as it\'s in the blacklist' % (synset, md5))
         else:
             shape_list.append([synset, md5])
         
-print len(shape_list), 'shapes are collected!'
+print(len(shape_list), 'shapes are collected!')
 
 shape_list.sort()
 shape_list_file = open(g_shape_list_file, 'w')

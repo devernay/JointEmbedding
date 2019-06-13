@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 import os
@@ -21,7 +21,7 @@ parser.add_argument('--iter_num', '-n', help='Use image embedding model trained 
 args = parser.parse_args()
 
 image_embedding_testing_in = os.path.join(BASE_DIR, 'image_embedding_'+g_network_architecture_name+'.prototxt.in')
-print 'Preparing %s...'%(g_image_embedding_testing_prototxt)
+print('Preparing %s...'%(g_image_embedding_testing_prototxt))
 shutil.copy(image_embedding_testing_in, g_image_embedding_testing_prototxt)
 for line in fileinput.input(g_image_embedding_testing_prototxt, inplace=True):
     line = line.replace('embedding_space_dim', str(g_shape_embedding_space_dimension))

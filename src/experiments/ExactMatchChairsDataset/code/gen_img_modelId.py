@@ -11,8 +11,8 @@ for k in range(len(modelIds)):
 img_filenames = [x.rstrip().split('/')[-1] for x in open('../exact_match_chairs_img_filelist.txt','r')]
 
 fout = open('exact_match_chairs_img_modelIds_0to6776.txt', 'w')
-for k in xrange(len(img_filenames)):
-  print k
+for k in range(len(img_filenames)):
+  print(k)
   modelId = img_filenames[k].split('_')[0]
   modelIndex = modelId_modelIndex_map[modelId]
   fout.write(str(modelIndex-1)+'\n')

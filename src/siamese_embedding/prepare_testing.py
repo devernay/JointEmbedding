@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 import os
@@ -23,7 +23,7 @@ parser.add_argument('--iter_num', '-n', help='Use siamese embedding model traine
 args = parser.parse_args()
 
 siamese_embedding_testing_in = os.path.join(BASE_DIR, 'siamese_embedding_'+g_network_architecture_name+'.prototxt.in')
-print 'Preparing %s...'%(g_siamese_embedding_testing_prototxt)
+print('Preparing %s...'%(g_siamese_embedding_testing_prototxt))
 shutil.copy(siamese_embedding_testing_in, g_siamese_embedding_testing_prototxt)
 for line in fileinput.input(g_siamese_embedding_testing_prototxt, inplace=True):
     line = line.replace('embedding_space_dim', str(g_shape_embedding_space_dimension))

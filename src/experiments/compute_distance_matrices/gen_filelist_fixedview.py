@@ -11,7 +11,7 @@ azimuth_degs = g_fixedview_azimuth_degs
 pure_img_filelist = []
 sampled_pure_img_filelist = [] # with elevation fixed
 for k in range(len(modelIds)):
-  print k
+  print(k)
   modelId = modelIds[k]
   model_img_dir = os.path.join(img_root_dir, modelId)
   for e in elevatio_degs:
@@ -23,7 +23,7 @@ for k in range(len(modelIds)):
       if e == g_fixedview_elevation_sample_deg:
           sampled_pure_img_filelist.append(img_path)
 
-print len(pure_img_filelist)
+print(len(pure_img_filelist))
 
 fout = open(os.path.join(BASE_DIR, 'pure_img_filelist.txt'), 'w')
 for name in pure_img_filelist:

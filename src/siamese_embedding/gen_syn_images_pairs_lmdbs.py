@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 import os
@@ -30,7 +30,7 @@ except:
     else:
         raise
 
-print datetime.datetime.now().time(), '- Allocating memory...'
+print(datetime.datetime.now().time(), '- Allocating memory...')
 syn_images_num = len([line.strip() for line in open(g_syn_images_train_val_split, 'r')])
 env = lmdb.open(g_pool5_lmdb, readonly=True)
 datum_array = np.empty(0)
@@ -41,7 +41,7 @@ with env.begin() as txn:
         datum.ParseFromString(value)
         datum_array = caffe.io.datum_to_array(datum)
         break;
-print datetime.datetime.now().time(), '- the shape of the datum is:', datum_array.shape
+print(datetime.datetime.now().time(), '- the shape of the datum is:', datum_array.shape)
 
 shared_array_base = multiprocessing.Array(ctypes.c_double, syn_images_num*datum_array.size)
 shared_array = np.ctypeslib.as_array(shared_array_base.get_obj())
@@ -69,7 +69,7 @@ def string_to_array(datum_string_idx, def_param=shared_array):
 pool = multiprocessing.Pool(g_gen_siamese_lmdb_thread_num)
 report_step = 1000;
 
-print  datetime.datetime.now().time(), '- Loading feature from %s...'%(g_pool5_lmdb)
+print(datetime.datetime.now().time(), '- Loading feature from %s...'%(g_pool5_lmdb))
 loaded_count = 0
 cache = []
 convert_count = 512
@@ -81,11 +81,11 @@ with env.begin() as txn:
             pool.map(string_to_array, cache)
             del cache[:]
         if(loaded_count%report_step == 0):
-            print datetime.datetime.now().time(), '-', loaded_count, 'of', syn_images_num, 'features loaded!'
+            print(datetime.datetime.now().time(), '-', loaded_count, 'of', syn_images_num, 'features loaded!')
         loaded_count = loaded_count + 1
 env.close()
 
-print datetime.datetime.now().time(), '- Starting generating pairs lmdbs...'
+print(datetime.datetime.now().time(), '- Starting generating pairs lmdbs...')
 
 if os.path.exists(g_pairs_pool5_lmdb_train):
     shutil.rmtree(g_pairs_pool5_lmdb_train)
@@ -127,7 +127,7 @@ for idx, image_pair in enumerate(image_pair_list):
             del cache_val_image_pair[:]
             
     if(idx%report_step == 0):
-        print datetime.datetime.now().time(), '-', idx, 'of', len(train_val_split), 'processed!' 
+        print(datetime.datetime.now().time(), '-', idx, 'of', len(train_val_split), 'processed!') 
 
 env_train.close()
 env_val.close()

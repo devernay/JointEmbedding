@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 import os
@@ -39,7 +39,7 @@ if args.prototxt:
 else:
     # change the batch size to speedup the computation a bit
     evaluation_prototxt = os.path.join(evaluation_folder, os.path.split(image_embedding_prototxt)[-1])
-    print 'Preparing %s...'%(evaluation_prototxt)
+    print('Preparing %s...'%(evaluation_prototxt))
     shutil.copy(image_embedding_prototxt, evaluation_prototxt)
     for line in fileinput.input(evaluation_prototxt, inplace=True):
         sys.stdout.write(line.replace('dim: 1', 'dim: 256')) 

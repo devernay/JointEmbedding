@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 import os
@@ -33,7 +33,7 @@ imageid2shapeid_mirror_val = os.path.join(g_data_folder, 'image_embedding/syn_im
 train_val_split_mirror = os.path.join(g_data_folder, 'image_embedding/syn_images_train_val_split'+shapenet_synset_set_handle_mirror+'.txt')
 
 shape_list_mirror_mapping_filename = os.path.join(g_data_folder, 'shape_list_mapping'+shapenet_synset_set_handle_mirror+'.txt')
-print 'Loading shape list mapping from %s...'%(shape_list_mirror_mapping_filename)
+print('Loading shape list mapping from %s...'%(shape_list_mirror_mapping_filename))
 shape_list_mirror_mapping = [bool(int(line.strip())) for line in open(shape_list_mirror_mapping_filename, 'r')]
 shapeid_mapping = []
 shape_count = 0
@@ -44,16 +44,16 @@ for item in shape_list_mirror_mapping:
     else:
         shapeid_mapping.append(-1)
 
-print 'Loading original imageid2shapeid from %s...'%(g_syn_images_imageid2shapeid)
+print('Loading original imageid2shapeid from %s...'%(g_syn_images_imageid2shapeid))
 imageid2shapeid_original = [int(line.strip()) for line in open(g_syn_images_imageid2shapeid, 'r')]
 
-print 'Loading original filelist from %s...'%(g_syn_images_filelist)
+print('Loading original filelist from %s...'%(g_syn_images_filelist))
 filelist_original = [line.strip() for line in open(g_syn_images_filelist, 'r')]
 
-print 'Loading original train_val_split from %s...'%(g_syn_images_train_val_split)
+print('Loading original train_val_split from %s...'%(g_syn_images_train_val_split))
 train_val_split_original = [int(line.strip()) for line in open(g_syn_images_train_val_split, 'r')]
 
-print 'Writing mirror files...'
+print('Writing mirror files...')
 filelist_mirror_file = open(filelist_mirror, 'w')
 filelist_mirror_train_file = open(filelist_mirror_train, 'w')
 filelist_mirror_val_file = open(filelist_mirror_val, 'w')
@@ -110,7 +110,7 @@ pool5_lmdb_mirror = os.path.join(g_data_folder, 'image_embedding/syn_images_pool
 if os.path.exists(pool5_lmdb_mirror):
     shutil.rmtree(pool5_lmdb_mirror)
 env_mirror = lmdb.open(pool5_lmdb_mirror, map_size=int(1e12))
-print 'Writing lmdb to %s...'%(pool5_lmdb_mirror)
+print('Writing lmdb to %s...'%(pool5_lmdb_mirror))
 
 txn_commit_count = 512
 report_step = 10000;
@@ -126,7 +126,7 @@ with env_original.begin() as txn:
             cache_key_mirror.append(key_mirror)
             cache_value_original.append(value)
             if(idx_mirror%report_step == 0):
-                print datetime.datetime.now().time(), '-', idx_mirror, 'of', len(imageid2shapeid_mirror), 'processed!'
+                print(datetime.datetime.now().time(), '-', idx_mirror, 'of', len(imageid2shapeid_mirror), 'processed!')
             idx_mirror = idx_mirror + 1
             
         if (len(cache_key_mirror) == txn_commit_count or idx_original == len(imageid2shapeid_original)-1):

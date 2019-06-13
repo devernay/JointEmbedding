@@ -17,7 +17,7 @@ folder_list.append(g_syn_images_cropped_folder)
 folder_list.append(g_syn_images_bkg_overlaid_folder)
 
 shape_list = [line.strip().split(' ') for line in open(g_shape_list_file, 'r')]
-print len(shape_list), 'Intermediate images of %d shapes are going to be deleted!'
+print(len(shape_list), 'Intermediate images of %d shapes are going to be deleted!')
 
 for folder in folder_list:
     for item in shape_list:

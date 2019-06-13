@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 import os, sys
@@ -26,7 +26,7 @@ view_distr_distance = 3
 view_distr_N = 1000000
 for synset in g_shapenet_synset_set:
     if synset not in g_view_distribution_params:
-        print 'Please define view distribution file generation parameters for synset %s in global_variables.py'%(synset)
+        print('Please define view distribution file generation parameters for synset %s in global_variables.py'%(synset))
         continue
 
     view_distr_filename = g_view_distribution_files[synset]

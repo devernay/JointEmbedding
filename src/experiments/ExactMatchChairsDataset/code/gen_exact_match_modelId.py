@@ -11,8 +11,8 @@ for k in range(len(modelIds)):
 shape_models = [x.rstrip() for x in open('../filelist_exactmatch_chair_105.txt','r')]
 
 fout = open('exact_match_chairs_shape_modelIds_0to6776.txt', 'w')
-for k in xrange(len(shape_models)):
-  print k
+for k in range(len(shape_models)):
+  print(k)
   modelId = shape_models[k]
   modelIndex = modelId_modelIndex_map[modelId]
   fout.write(str(modelIndex-1)+'\n')

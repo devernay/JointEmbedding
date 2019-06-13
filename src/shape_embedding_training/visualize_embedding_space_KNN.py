@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 import os
@@ -17,14 +17,14 @@ parser.add_argument('--query_idx', help='Query shape index.', type=int, required
 parser.add_argument('--top_k', help='Retrieve top K shapes.', type=int, default=32)
 args = parser.parse_args()
 
-print 'Loading shape embedding space from %s...'%(g_shape_embedding_space_file_txt)
+print('Loading shape embedding space from %s...'%(g_shape_embedding_space_file_txt))
 shape_embedding_space = [np.array([float(value) for value in line.strip().split(' ')]) for line in open(g_shape_embedding_space_file_txt, 'r')]
 query_embedding = shape_embedding_space[args.query_idx]
 
-print 'Computing distances and ranking...'
+print('Computing distances and ranking...')
 sorted_distances = sorted([(sum((query_embedding-shape_embedding)**2), idx) for idx, shape_embedding in enumerate(shape_embedding_space)])
 
-print 'Loading shape list from %s'%(g_shape_list_file)
+print('Loading shape list from %s'%(g_shape_list_file))
 shape_list = [line.strip().split(' ') for line in open(g_shape_list_file, 'r')]
 assert(len(shape_embedding_space) == len(shape_list))
 
@@ -33,7 +33,7 @@ if not os.path.exists(visualization_folder):
     os.makedirs(visualization_folder)
 visualization_filename = os.path.join(visualization_folder, 'visualize_embedding_space_KNN_%s.html'%(args.query_idx))
 visualization_template = os.path.join(BASE_DIR, 'visualize_embedding_space_KNN.html')
-print 'Saving visualization to %s...'%(visualization_filename)
+print('Saving visualization to %s...'%(visualization_filename))
 shutil.copy(visualization_template, visualization_filename)
 for line in fileinput.input(visualization_filename, inplace=True):
     line = line.replace('SYNSET', shape_list[args.query_idx][0])

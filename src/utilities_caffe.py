@@ -111,7 +111,7 @@ def extract_cnn_features(img_filelist, img_root, prototxt, caffemodel, feat_name
             datum_strings = pool.map(_array4d_idx_to_datum_string, array4d_idx)
             with env.begin(write=True) as txn:
                 for idx in range(end_idx-start_idx):
-                    txn.put('{:0>10d}'.format(start_idx+idx), datum_strings[idx])        
+                    txn.put('{:0>10d}'.format(start_idx+idx).encode('utf-8'), datum_strings[idx])
         env.close();
                 
 def stack_caffe_models(prototxt, base_model, top_model, stacked_model, caffe_path=None):

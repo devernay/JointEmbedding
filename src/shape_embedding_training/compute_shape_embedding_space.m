@@ -11,7 +11,8 @@ fprintf('done (%f seconds)!\n', etime(t_end, t_begin));
 %% Compute shape embedding space
 t_begin = clock;
 fprintf('Computing shape embedding space, it takes for a while...');
-options = statset('Display', 'iter', 'MaxIter', 128);
+%% options = statset('Display', 'iter', 'MaxIter', 128);
+options = statset('Display', 'iter', 'MaxIter', 256);
 
 %% There may be very similar shapes in the dataset, although it was curated, e.g.:
 %% 03001627 69e591a9769e03012c528d33bca1ac2 == 03001627 61d29e8133da0b58d1fd43e2bf80195

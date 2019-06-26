@@ -24,7 +24,7 @@ for synset in g_shapenet_synset_set:
             print(shape_file, 'doesn\'t exist!')
         
         shape_item = [synset, md5]
-	if shape_item in blacklist:
+        if shape_item in blacklist:
             print('Skip %s/%s as it\'s in the blacklist' % (synset, md5))
         else:
             shape_list.append([synset, md5])

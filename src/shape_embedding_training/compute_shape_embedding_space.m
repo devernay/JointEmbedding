@@ -24,7 +24,8 @@ options = statset('Display', 'iter', 'MaxIter', 256);
 %% min=0.000172949, max=53.1886, mean=32.2377, std=3.92785, median=32.6227
 smallvalue = min(nonzeros(shape_distance_matrix)) / 100;
 shape_distance_matrix(shape_distance_matrix <= 0) = smallvalue;
-shape_distance_matrix(1:1+size(shape_distance_matrix,1):end) = 0
+# shape_distance_matrix is a pairwise distance vector, not a square distance matrix,
+# so that diagonal elements of the corresponding matrix are still zero.
 
 [shape_embedding_space, stress, disparities] = mdscale(shape_distance_matrix, g_shape_embedding_space_dimension, 'criterion', 'sammon', 'options', options); 
 t_end = clock;

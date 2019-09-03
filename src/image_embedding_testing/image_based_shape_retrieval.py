@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import os
@@ -86,7 +86,7 @@ for i in range(args.top_k):
 
 visualization_filename_txt = os.path.splitext(args.image)[0]+'_retrieval.txt'
 f = open(visualization_filename_txt, "w")
-print(*retrieval_list_txt, sep=',', file=f)
+print(retrieval_list_txt, sep=',', file=f)
 f.close()
 
 for line in fileinput.input(visualization_filename, inplace=True):

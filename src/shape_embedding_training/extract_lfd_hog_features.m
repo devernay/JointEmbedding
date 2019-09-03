@@ -16,6 +16,8 @@ while ischar(line)
     lfd_images_folder = fullfile(g_lfd_images_cropped_folder, shape_property{1}, shape_property{2});
     % lfd_images_cell = extractfield(dir(fullfile(lfd_images_folder, '*.png')), 'name');
     lfd_images_dir = dir(fullfile(lfd_images_folder, '*.png'));
+    % remove hidden files, or at least those beginning with a dot (such as those produced by macOS)
+    lfd_images_dir = lfd_images_dir(arrayfun(@(x) ~strcmp(x.name(1),'.'),lfd_images_dir));
     lfd_images_cell = {lfd_images_dir.name};
     lfd_images_sorted = sort(lfd_images_cell);
     for i = 1:g_lfd_view_num
